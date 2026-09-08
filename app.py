@@ -74,6 +74,12 @@ if min_col:
 else:
     col4.metric("최저 기온", "컬럼 없음")
 
+st.subheader("🕳️ 열별 결측치(관측 없는 날) 개수")
+missing_df = df.isna().sum().reset_index()
+missing_df.columns = ["열(컬럼)", "결측치 개수"]
+missing_df["결측 비율(%)"] = (missing_df["결측치 개수"] / len(df) * 100).round(2)
+st.dataframe(missing_df, use_container_width=True, hide_index=True)
+
 with st.expander("전체 컬럼 통계 자세히 보기 (describe)"):
     st.dataframe(df.describe(), use_container_width=True)
 
